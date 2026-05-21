@@ -1,0 +1,308 @@
+---
+// src/components/Footer.astro
+
+const navGroups = [
+  {
+    title: "Navegação",
+    links: [
+      { href: "#sobre", label: "Sobre Nós" },
+      { href: "#gatos", label: "Nossos Gatos" },
+      { href: "#cardapio", label: "Cardápio" },
+      { href: "#experiencia", label: "O Espaço" },
+      { href: "#depoimentos", label: "Depoimentos" },
+    ],
+  },
+  {
+    title: "Adoção",
+    links: [
+      { href: "#reserva", label: "Como Adotar" },
+      { href: "#gatos", label: "Gatos Disponíveis" },
+      { href: "#reserva", label: "Pós-Adoção" },
+      { href: "#reserva", label: "Seja Voluntário" },
+      { href: "#reserva", label: "Doe para a Causa" },
+    ],
+  },
+  {
+    title: "Contato",
+    links: [
+      { href: "tel:+5511999998888", label: "(11) 9 9999-8888" },
+      { href: "mailto:oi@miawcafe.com.br", label: "oi@miawcafe.com.br" },
+      { href: "#reserva", label: "Rua Augusta, 1420" },
+      { href: "#reserva", label: "Pinheiros — SP" },
+    ],
+  },
+];
+
+const socialLinks = [
+  { label: "Instagram", short: "IG", href: "#" },
+  { label: "TikTok", short: "TK", href: "#" },
+  { label: "Facebook", short: "FB", href: "#" },
+  { label: "Pinterest", short: "PT", href: "#" },
+];
+---
+
+<footer role="contentinfo" class="footer">
+  <div class="footer__top">
+    <!-- Brand column -->
+    <div class="footer__brand">
+      <a href="#" class="footer__logo" aria-label="Miaw Café — Início">
+        MIAW CAFÉ
+      </a>
+      <p class="footer__tagline">
+        <em>
+          Um refúgio urbano onde café artesanal e gatos adoráveis se encontram
+          para criar momentos inesquecíveis no coração de Pinheiros.
+        </em>
+      </p>
+
+      <nav aria-label="Redes sociais">
+        <div class="footer__social">
+          
+          {
+            socialLinks.map((s) => (
+              <a
+                href={s.href}
+                class="footer__social-btn"
+                aria-label={`${s.label} do Miaw Café`}
+              >
+                {s.short}
+              </a>
+            ))
+          }
+          
+        </div>
+      </nav>
+    </div>
+
+    <!-- Nav columns -->
+    
+    {
+      navGroups.map((group) => (
+        <div class="footer__col">
+          <p class="footer__col-title">{group.title}</p>
+          <ul class="footer__links" role="list">
+            {group.links.map((link) => (
+              <li role="listitem">
+                <a href={link.href} class="footer__link">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+    
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer__bottom">
+    <p class="footer__copy">
+      © 2026 Miaw Café · Todos os direitos reservados · CNPJ 00.000.000/0001-00
+    </p>
+    <nav aria-label="Links legais">
+      <div class="footer__legal">
+        <a href="#" class="footer__legal-link">Privacidade</a>
+        <a href="#" class="footer__legal-link">Termos de Uso</a>
+        <a href="#" class="footer__legal-link">Cookies</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Decorative footer text -->
+  <div class="footer__deco" aria-hidden="true">
+    <span>🐾 MIAW MIAW MIAW MIAW 🐾</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    width: 100%;
+    min-height: 60dvh;
+    background: var(--color-warm-black);
+    color: var(--color-cream);
+    padding: 64px var(--section-padding-x) 32px;
+    border-top: 3px solid var(--color-terra);
+  }
+
+  /* ── Top grid ─────────────────────────────────── */
+  .footer__top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(240, 232, 208, 0.1);
+    margin-bottom: 28px;
+  }
+
+  /* ── Brand ────────────────────────────────────── */
+  .footer__logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--color-cream);
+    margin-bottom: 16px;
+    display: block;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer__logo:hover {
+    color: var(--color-terra);
+  }
+
+  .footer__tagline {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: rgba(240, 232, 208, 0.42);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  /* ── Social ───────────────────────────────────── */
+  .footer__social {
+    display: flex;
+    gap: 8px;
+  }
+
+  .footer__social-btn {
+    width: 38px;
+    height: 38px;
+    border: 2px solid rgba(240, 232, 208, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.04em;
+    color: rgba(240, 232, 208, 0.4);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+
+  .footer__social-btn:hover {
+    border-color: var(--color-terra);
+    color: var(--color-terra);
+    background: rgba(196, 98, 45, 0.08);
+  }
+
+  /* ── Nav columns ──────────────────────────────── */
+  .footer__col-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-cream);
+    margin-bottom: 20px;
+  }
+
+  .footer__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer__link {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: rgba(240, 232, 208, 0.42);
+    text-decoration: none;
+    display: block;
+    transition: color 0.15s;
+  }
+
+  .footer__link:hover {
+    color: var(--color-terra);
+  }
+
+  /* ── Bottom bar ───────────────────────────────── */
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer__copy {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(240, 232, 208, 0.22);
+  }
+
+  .footer__legal {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer__legal-link {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(240, 232, 208, 0.22);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer__legal-link:hover {
+    color: var(--color-terra);
+  }
+
+  /* ── Decorative text ──────────────────────────── */
+  .footer__deco {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    max-height: 100%;
+    width: 100%;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    border-top: 1px solid rgba(240, 232, 208, 0.06);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 6rem;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    color: rgba(240, 232, 208, 0.03);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* ── Responsive ───────────────────────────────── */
+  @media (max-width: 1024px) {
+    .footer__top {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer__top {
+      grid-template-columns: 1fr;
+    }
+    .footer__brand {
+      grid-column: auto;
+    }
+    .footer__deco {
+      font-size: 2rem;
+    }
+  }
+</style>

@@ -1,11 +1,59 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Ticker from '../components/Ticker.astro';
+import About from '../components/About.astro';
+import Cats from '../components/Cats.astro';
+import Menu from '../components/Menu.astro';
+import Experience from '../components/Experience.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Reserva from '../components/Reserva.astro';
+import Footer from '../components/Footer.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout
+  title="MIAW CAFÉ — Where Cats & Coffee Meet"
+  description="O único lugar onde o café é excelente, os gatos são adoráveis e o ambiente é tão aconchegante que você vai querer ficar para sempre. Pinheiros, São Paulo."
+>
+  <!-- Global button styles -->
+  <Button />
+
+  <!-- Fixed navigation -->
+  <Navbar />
+
+  <main id="main-content">
+    <!-- 1. Hero section -->
+    <Hero />
+
+    <!-- Ticker marquee -->
+    <Ticker />
+
+    <!-- 2. Sobre o café -->
+    <About />
+
+    <!-- 3. Área dos gatos / adoção -->
+    <Cats />
+
+    <!-- 4. Cardápio destaque -->
+    <Menu />
+
+    <!-- 5. Experiência do ambiente -->
+    <Experience />
+
+    <!-- 6. Depoimentos -->
+    <Testimonials />
+
+    <!-- 7. CTA de reserva -->
+    <Reserva />
+  </main>
+
+  <!-- 8. Footer criativo -->
+  <Footer />
+
+  <!-- Scroll reveal for non-React sections -->
+  <ScrollReveal />
+</BaseLayout>

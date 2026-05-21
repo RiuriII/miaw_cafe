@@ -1,0 +1,35 @@
+---
+// src/components/ScrollReveal.astro
+// Handles intersection-observer-based scroll animations for non-React elements
+---
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("revealed");
+
+					// Limpa o delay só depois que a transição terminar
+					entry.target.addEventListener(
+						"transitionend",
+						() => {
+							(entry.target as HTMLElement).style.transitionDelay = "0ms";
+						},
+						{ once: true }, // executa uma vez e se auto-remove
+					);
+
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+	);
+
+	// Observe all elements with data-reveal attribute
+	document.querySelectorAll("[data-reveal]").forEach((el, i) => {
+		const delay = i * 0.1;
+		(el as HTMLElement).style.transitionDelay = `${delay}s`;
+		observer.observe(el);
+	});
+</script>

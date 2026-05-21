@@ -1,0 +1,280 @@
+---
+// src/components/Experience.astro
+import { FEATURES } from "../data";
+
+const photos = [
+	{ image: "/images/area-principal.png", label: "Área Principal / 40 lugares", bgColor: "#C4622D" },
+	{ image: "/images/jardim-de-inverno.png", label: "Jardim de Inverno", bgColor: "#6B7A55" },
+	{ image: "/images/cat-zone.png", label: "Cat Zone — Interação livre", bgColor: "#8B7B6E" },
+];
+---
+
+<section id="experiencia" aria-label="A experiência do Miaw Café" class="experience">
+	<!-- Large decorative background text -->
+	<div class="experience__deco" aria-hidden="true">CAT</div>
+
+	<!-- Main grid -->
+	<div class="experience__grid">
+		<!-- Left: headline + body + CTA -->
+		<div class="experience__content">
+			<p class="section-label section-label--light">O ambiente</p>
+			<h2 class="experience__heading text-display">
+				Uma<br />Experiência<br />
+				<span class="experience__heading-accent">Sensorial</span>
+			</h2>
+
+			<p class="experience__body">
+				Cada canto do Miaw Café foi pensado para criar um ambiente único onde texturas, aromas, sons
+				e a presença dos gatos se combinam para proporcionar uma experiência verdadeiramente
+				terapêutica.
+			</p>
+
+			<p class="experience__body">
+				Não é só um café — é um refúgio urbano onde o tempo passa diferente e cada visita parece um
+				mini-retiro.
+			</p>
+
+			<div class="experience__actions">
+				<a href="#reserva" class="btn btn--primary">Reservar Mesa</a>
+				<a href="#reserva" class="btn btn--outline-light">Ver Galeria</a>
+			</div>
+		</div>
+
+		<!-- Right: photo stack -->
+		<div class="experience__photos" role="list" aria-label="Fotos do espaço">
+			{
+				photos.map((photo) => (
+					<div class="experience__photo" role="listitem">
+						<div class="experience__photo-image" style={`background-color: ${photo.bgColor}`}>
+							<img src={photo.image} alt={photo.label} width="300" height="200" />
+						</div>
+						<p class="experience__photo-label">{photo.label}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+
+	<!-- Features strip -->
+	<div class="experience__features" role="list" aria-label="Recursos e comodidades">
+		{
+			FEATURES.map((feature) => (
+				<div class="experience__feature" role="listitem" data-reveal>
+					<span class="experience__feature-icon" aria-hidden="true">
+						{feature.icon}
+					</span>
+					<h3 class="experience__feature-title">{feature.title}</h3>
+					<p class="experience__feature-desc">{feature.description}</p>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.experience {
+		background: var(--color-ink);
+		padding: var(--section-padding-y) var(--section-padding-x);
+		color: var(--color-cream);
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Decorative text */
+	.experience__deco {
+		position: absolute;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 28rem;
+		color: rgba(196, 98, 45, 0.04);
+		left: -60px;
+		bottom: -80px;
+		line-height: 1;
+		pointer-events: none;
+		user-select: none;
+	}
+
+	/* ── Main grid ────────────────────────────────── */
+	.experience__grid {
+		display: grid;
+		grid-template-columns: 3fr 2fr;
+		gap: clamp(40px, 6vw, 100px);
+		align-items: center;
+		margin-bottom: 64px;
+		position: relative;
+		z-index: 2;
+	}
+
+	.experience__heading {
+		font-size: clamp(3rem, 7vw, 5rem);
+		color: var(--color-cream);
+		line-height: 0.88;
+		margin-bottom: 24px;
+	}
+
+	.experience__heading-accent {
+		color: var(--color-terra);
+	}
+
+	.experience__body {
+		color: rgba(240, 232, 208, 0.65);
+		font-size: 1.05rem;
+		line-height: 1.75;
+		margin-bottom: 20px;
+	}
+
+	.experience__actions {
+		display: flex;
+		gap: 16px;
+		margin-top: 32px;
+	}
+
+	/* ── Photo stack ──────────────────────────────── */
+	.experience__photos {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	.experience__photo {
+		width: 100%;
+		max-width: 380px;
+		border: 2px solid var(--color-sage);
+		overflow: hidden;
+		cursor: default;
+	}
+
+	.experience__photo-image {
+		height: 130px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.experience__photo-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	.experience__photo-image:hover img {
+		transform: scale(1.05);
+		transition: transform 0.3s ease;
+	}
+
+	.experience__photo-label {
+		padding: 10px 16px;
+		border-top: 1px solid var(--color-sage);
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: rgba(240, 232, 208, 0.555);
+	}
+
+	/* ── Features strip ───────────────────────────── */
+	.experience__features {
+		display: flex;
+		border-top: 2px solid rgba(240, 232, 208, 0.12);
+		position: relative;
+		z-index: 2;
+	}
+
+	.experience__feature {
+		padding: 32px 24px;
+		border-right: 2px solid rgba(240, 232, 208, 0.12);
+	}
+
+	.experience__feature:last-child {
+		border-right: none;
+	}
+
+	.experience__feature-icon {
+		font-size: 2rem;
+		margin-bottom: 14px;
+		display: block;
+	}
+
+	.experience__feature-title {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.85rem;
+		text-transform: uppercase;
+		color: var(--color-cream);
+		margin-bottom: 8px;
+		line-height: 1.1;
+	}
+
+	.experience__feature-desc {
+		font-size: 0.78rem;
+		color: var(--color-parchment);
+		line-height: 1.55;
+	}
+
+	/* ── Responsive ───────────────────────────────── */
+	@media (max-width: 900px) {
+		.experience__grid {
+			grid-template-columns: 1fr;
+			gap: 48px;
+		}
+		.experience__heading {
+			font-size: clamp(2.5rem, 5vw, 6rem);
+		}
+
+		.experience__features {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.experience__photos {
+			width: 100%;
+			align-items: start;
+			gap: 24px;
+		}
+
+		.experience__actions {
+			width: 100%;
+			flex-direction: column;
+			align-items: start;
+			gap: 12px;
+		}
+
+		.experience__feature {
+			width: 100%;
+			border-right: none;
+			padding: 24px 0;
+			border-bottom: 2px solid rgba(240, 232, 208, 0.12);
+		}
+
+		.experience__feature:nth-last-child(-n + 2) {
+			border-bottom: 2px solid rgba(240, 232, 208, 0.12);
+		}
+
+		.experience__feature:last-child {
+			border-bottom: none;
+		}
+	}
+
+	/* ── Mobile ───────────────────────────────────── */
+	@media (max-width: 600px) {
+		.experience__grid {
+			gap: 36px;
+			margin-bottom: 40px;
+		}
+
+		.experience__body {
+			font-size: 0.95rem;
+		}
+
+		.experience {
+			padding: var(--section-padding-y) 8px;
+		}
+
+		.experience__heading {
+			font-size: clamp(2rem, 3vw, 3rem);
+		}
+	}
+</style>

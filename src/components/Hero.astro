@@ -1,0 +1,313 @@
+---
+// src/components/Hero.astro
+import { STATS } from "../data";
+---
+
+<section id="hero" aria-label="Bem-vindo ao Miaw Café" class="hero">
+	<div class="hero__wrap">
+		<!-- Left column: headline + CTA -->
+		<div class="hero__left">
+			<!-- Badge + year -->
+			<div class="hero__tag">
+				<span class="hero__badge" aria-label="Estabelecido em 2022">Est. 2022</span>
+				<span class="hero__year" aria-hidden="true">São Paulo — Brasil</span>
+			</div>
+
+			<!-- Main headline -->
+			<h1 class="hero__headline text-display" aria-label="Miaw Café">
+				MIAW
+				<span class="hero__headline-l2">CAFÉ</span>
+				<span class="hero__headline-l3">× Cat Experience ×</span>
+			</h1>
+
+			<p class="hero__subtitle" aria-role="doc-subtitle">
+				O único lugar onde o café é excelente, os gatos são adoráveis e o ambiente é
+				<em>tão aconchegante que você vai querer ficar para sempre.</em>
+			</p>
+
+			<div class="hero__buttons" aria-role="group" aria-label="Ações principais">
+				<a href="#reserva" class="btn btn--primary">Reservar Agora</a>
+				<a href="#gatos" class="btn btn--ghost">Conhecer os Gatos →</a>
+			</div>
+
+			<!-- Decorative floating stickers -->
+			<div
+				class="sticker"
+				style="top: 60px; right: 20px; --rotate: rotate(-9deg);"
+				aria-hidden="true"
+			>
+				✦ Adote um Gato
+			</div>
+			<div
+				class="sticker hero__sticker-alt"
+				style="bottom: 130px; right: -10px; animation: float-alt 4s ease-in-out 1.5s infinite;"
+				aria-hidden="true"
+			>
+				100% Artesanal
+			</div>
+		</div>
+
+		<!-- Right column: featured cat card -->
+		<aside class="hero__card" aria-label="Gato do dia: Biscoito">
+			<div class="hero__card-image" aria-hidden="true">
+				<img src="/images/biscoito.jpg" alt="Biscoito, o gato do dia" />
+			</div>
+			<div class="hero__card-body">
+				<p class="hero__card-label">Gato do Dia</p>
+				<p class="hero__card-title">Biscoito</p>
+				<div class="hero__card-pills">
+					<span class="pill pill--terra">Para Adoção</span>
+					<span class="pill">Brincalhão</span>
+					<span class="pill">Mansa</span>
+				</div>
+			</div>
+		</aside>
+	</div>
+
+	<!-- Stats strip -->
+	<div class="hero__stats" role="list" aria-label="Números do café">
+		{
+			STATS.map((stat) => (
+				<div class="hero__stat" role="listitem" data-reveal>
+					<div class="hero__stat-number" aria-label={stat.number}>
+						{stat.number}
+					</div>
+					<div class="hero__stat-label">{stat.label}</div>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.hero {
+		min-height: 100vh;
+		padding-top: 64px;
+		background: var(--color-cream);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.hero__wrap {
+		padding: 56px var(--section-padding-x) 0;
+		display: grid;
+		grid-template-columns: 1fr 320px;
+		gap: 40px;
+		align-items: start;
+	}
+
+	/* ── Left column ──────────────────────────────── */
+	.hero__left {
+		position: relative;
+	}
+
+	.hero__tag {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 28px;
+	}
+
+	.hero__badge {
+		background: var(--color-terra);
+		color: var(--color-white);
+		font-family: var(--font-mono);
+		font-size: 0.6rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		padding: 6px 14px;
+		border: 2px solid var(--color-ink);
+	}
+
+	.hero__year {
+		font-family: var(--font-mono);
+		font-size: 0.6rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--color-sand);
+	}
+
+	.hero__headline {
+		font-size: clamp(5rem, 10vw, 9.5rem);
+		color: var(--color-ink);
+		position: relative;
+		z-index: 2;
+	}
+
+	.hero__headline-l2 {
+		color: var(--color-terra);
+		display: block;
+		transform: translateX(80px);
+	}
+
+	.hero__headline-l3 {
+		display: block;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: clamp(1rem, 2.2vw, 1.6rem);
+		letter-spacing: 0.35em;
+		color: var(--color-sage);
+		transform: translateX(6px);
+		margin-top: 12px;
+		line-height: 1;
+	}
+
+	.hero__subtitle {
+		font-family: var(--font-body);
+		font-style: italic;
+		font-size: 1.05rem;
+		color: rgba(26, 21, 16, 0.6);
+		line-height: 1.75;
+		margin-top: 28px;
+		max-width: 420px;
+	}
+
+	.hero__buttons {
+		display: flex;
+		gap: 16px;
+		margin-top: 36px;
+		flex-wrap: wrap;
+	}
+
+	/* ── Hero card ────────────────────────────────── */
+	.hero__card {
+		background: var(--color-parchment);
+		border: 3px solid var(--color-ink);
+		box-shadow: 10px 10px 0 var(--color-terra);
+		position: sticky;
+		top: 88px;
+		overflow: hidden;
+		transition:
+			box-shadow 0.2s,
+			transform 0.2s;
+	}
+
+	.hero__card:hover {
+		transform: translate(-3px, -3px);
+		box-shadow: 13px 13px 0 var(--color-terra);
+	}
+
+	.hero__card-image {
+		background: var(--color-terra);
+		height: 260px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-bottom: 3px solid var(--color-ink);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.hero__card-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		filter: saturate(1.4) brightness(0.7);
+		transition: transform 0.3s ease;
+	}
+	.hero__card-body {
+		padding: 20px;
+	}
+
+	.hero__card-label {
+		font-family: var(--font-mono);
+		font-size: 0.58rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-sand);
+		margin-bottom: 6px;
+	}
+
+	.hero__card-title {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1rem;
+		text-transform: uppercase;
+		margin-bottom: 12px;
+	}
+
+	.hero__card-pills {
+		display: flex;
+		gap: 6px;
+		flex-wrap: wrap;
+	}
+
+	/* ── Stickers ─────────────────────────────────── */
+	.hero__sticker-alt {
+		background: var(--color-parchment);
+	}
+
+	/* ── Stats strip ──────────────────────────────── */
+	.hero__stats {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		border-top: 3px solid var(--color-ink);
+		margin-top: 60px;
+		background: var(--color-ink);
+	}
+
+	.hero__stat {
+		padding: 28px 32px;
+		border-right: 3px solid rgba(240, 232, 208, 0.12);
+	}
+
+	.hero__stat:last-child {
+		border-right: none;
+	}
+
+	.hero__stat-number {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 3.5rem;
+		color: var(--color-terra);
+		line-height: 1;
+		text-transform: uppercase;
+	}
+
+	.hero__stat-label {
+		font-family: var(--font-mono);
+		font-size: 0.6rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: rgba(240, 232, 208, 0.4);
+		margin-top: 4px;
+	}
+
+	/* ── Responsive ───────────────────────────────── */
+	@media (max-width: 900px) {
+		.hero__wrap {
+			grid-template-columns: 1fr;
+			padding-top: 40px;
+		}
+		.hero__card {
+			display: none;
+		}
+		.hero__stats {
+			grid-template-columns: 1fr;
+		}
+		.hero__stat {
+			border-right: none;
+			border-bottom: 3px solid rgba(240, 232, 208, 0.12);
+		}
+
+		.hero__stat:last-child {
+			border-bottom: none;
+		}
+		.hero__stat-number {
+			font-size: 2.5rem;
+		}
+	}
+
+	@media (max-width: 400px) {
+		.hero__headline {
+			font-size: clamp(3.5rem, 10vw, 5rem);
+		}
+		.hero__headline-l2 {
+			transform: translateX(40px);
+		}
+		.hero__headline-l3 {
+			transform: translateX(4px);
+		}
+	}
+</style>

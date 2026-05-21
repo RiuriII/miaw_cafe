@@ -1,0 +1,210 @@
+---
+// src/components/Cats.astro
+import { CATS } from "../data";
+import CatCard from "./CatCard";
+---
+
+<section id="gatos" aria-label="Nossos gatos residentes" class="cats">
+	<!-- Section header -->
+	<div class="sec-header">
+		<div>
+			<p class="section-label">Nossos residentes</p>
+			<h2 class="cats__heading text-display">
+				Os Gatos<br />do Miaw
+			</h2>
+		</div>
+		<a href="#reserva" class="btn btn--dark" style="flex-shrink:0;"> Visitar Todos → </a>
+	</div>
+
+	<!-- Cat cards grid -->
+	<div class="cats__grid" role="list" aria-label="Lista de gatos">
+		{CATS.map((cat, index) => <CatCard client:visible cat={cat} index={index} />)}
+	</div>
+
+	<!-- Adoption strip -->
+	<div class="cats__adoption-strip" role="complementary" aria-label="Programa de adoção">
+		<div class="cats__adoption-pattern" aria-hidden="true"></div>
+
+		<div class="cats__adoption-text">
+			<p class="cats__adoption-label">Programa de Adoção Responsável</p>
+			<h3 class="cats__adoption-heading text-display">
+				300+ Famílias<br />Transformadas
+			</h3>
+			<p class="cats__adoption-sub">
+				<em>Cada adoção inclui acompanhamento veterinário por 30 dias.</em>
+			</p>
+		</div>
+
+		<div class="cats__adoption-actions">
+			<a href="#reserva" class="btn btn--secondary">Quero Adotar</a>
+			<a href="#sobre" class="btn btn--outline-light">Saiba Mais</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.cats {
+		background: var(--color-parchment);
+		padding: var(--section-padding-y) var(--section-padding-x);
+		position: relative;
+	}
+
+	.cats__heading {
+		font-size: clamp(2rem, 5vw, 3.5rem);
+	}
+
+	/* ── Grid ─────────────────────────────────────── */
+	.cats__grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+		align-items: start;
+	}
+
+	/* ── Adoption strip ───────────────────────────── */
+	.cats__adoption-strip {
+		margin-top: 60px;
+		background: var(--color-ink);
+		border: 3px solid var(--color-ink);
+		padding: 32px 40px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+		position: relative;
+		overflow: hidden;
+	}
+	.cats__adoption-pattern {
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(rgba(200, 232, 0, 0.06) 1px, transparent 1px);
+		background-size: 20px 20px;
+		pointer-events: none;
+	}
+	.cats__adoption-text {
+		position: relative;
+		z-index: 2;
+	}
+	.cats__adoption-label {
+		font-family: var(--font-mono);
+		font-size: 0.6rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--color-terra-light);
+		margin-bottom: 8px;
+	}
+	.cats__adoption-heading {
+		/* clamp com vw mais alto garante legibilidade em mobile sem salto brusco */
+		font-size: clamp(1.6rem, 5vw, 1.9rem);
+		color: var(--color-cream);
+		line-height: 1;
+	}
+	.cats__adoption-sub {
+		font-family: var(--font-body);
+		font-style: italic;
+		font-size: 0.9rem;
+		color: rgba(240, 232, 208, 0.48);
+		margin-top: 6px;
+	}
+	.cats__adoption-actions {
+		display: flex;
+		gap: 16px;
+		flex-shrink: 0;
+		position: relative;
+		z-index: 2;
+	}
+
+	/* ── Responsive ───────────────────────────────── */
+	@media (max-width: 900px) {
+		.cats__grid {
+			grid-template-columns: 1fr;
+			align-items: center;
+		}
+		.sec-header {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 16px;
+		}
+
+		/* Tablet: empilha texto e botões, alinha à esquerda */
+		.cats__adoption-strip {
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 32px 28px;
+			gap: 28px;
+		}
+
+		/* Botões lado a lado ainda cabem em tablet */
+		.cats__adoption-actions {
+			flex-shrink: unset;
+			width: 100%;
+		}
+	}
+
+	/* Mobile (≤ 600px) */
+	@media (max-width: 600px) {
+		.cats__adoption-strip {
+			width: 100%;
+			margin-top: 40px;
+			padding: 28px 20px;
+			gap: 24px;
+			/* Linha decorativa lateral — substitui o box visual que se perde no mobile */
+			border-left: 6px solid var(--color-terra);
+		}
+
+		.cats__adoption-label {
+			font-size: 0.55rem;
+			letter-spacing: 0.12em;
+		}
+
+		/* Heading: vw maior para não encolher demais em telas estreitas */
+		.cats__adoption-heading {
+			font-size: clamp(1.5rem, 8vw, 1.9rem);
+		}
+
+		.cats__adoption-sub {
+			font-size: 0.82rem;
+		}
+
+		/* Botões empilhados e full-width em mobile */
+		.cats__adoption-actions {
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.cats__adoption-actions .btn {
+			width: 100%;
+			text-align: center;
+		}
+
+		.sec-header {
+			padding-left: var(--section-padding-x);
+		}
+
+		.cats__grid {
+			padding: 0 var(--section-padding-x);
+		}
+	}
+
+	/* Mobile pequeno (≤ 400px) */
+	@media (max-width: 400px) {
+		.cats {
+			padding: var(--section-padding-y) 0;
+		}
+		.cats__adoption-strip {
+			width: 100%;
+			padding: 24px 12px;
+			border: none;
+		}
+
+		.cats__adoption-heading {
+			/* 10vw em 360px = ~36px — ainda impactante */
+			font-size: clamp(1rem, 6vw, 1.7rem);
+			line-height: 1.3rem;
+		}
+
+		.cats__adoption-sub {
+			font-size: 0.78rem;
+		}
+	}
+</style>

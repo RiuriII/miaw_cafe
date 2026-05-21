@@ -1,0 +1,312 @@
+---
+// src/components/Navbar.astro
+import { NAV_LINKS } from "../data";
+---
+
+<header role="banner" id="navbar" class="navbar">
+	<a href="#" class="navbar__logo" aria-label="Miaw Café — Página inicial">
+		<span class="navbar__logo-dot" aria-hidden="true"></span>
+		MIAW CAFÉ
+	</a>
+
+	<nav aria-label="Navegação principal">
+		<ul class="navbar__links" role="list">
+			{
+				NAV_LINKS.map((link) => (
+					<li role="listitem">
+						<a href={link.href} class="navbar__link">
+							{link.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+
+	<div class="navbar__actions">
+		<a href="#reserva" class="btn btn--primary" aria-label="Reservar mesa"> Reservar Mesa </a>
+	</div>
+
+	<!-- Mobile hamburger -->
+	<button
+		class="navbar__hamburger"
+		aria-label="Abrir menu"
+		aria-expanded="false"
+		aria-controls="mobile-menu"
+		id="hamburger-btn"
+	>
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+	<nav aria-label="Menu mobile">
+		<ul class="mobile-menu__links" role="list">
+			{
+				NAV_LINKS.map((link) => (
+					<li role="listitem">
+						<a href={link.href} class="mobile-menu__link">
+							{link.label}
+						</a>
+					</li>
+				))
+			}
+			<li role="listitem">
+				<a
+					href="#reserva"
+					class="btn btn--primary"
+					style="width:100%;text-align:center;display:block;margin-top:8px"
+				>
+					Reservar Mesa
+				</a>
+			</li>
+		</ul>
+	</nav>
+</div>
+
+<style>
+	/* ── Navbar ───────────────────────────────────── */
+	.navbar {
+		width: 100%;
+		height: 64px;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 500;
+		background: var(--color-cream);
+		border-bottom: 3px solid var(--color-ink);
+		padding: 0 var(--section-padding-x);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.navbar__logo {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 1.3rem;
+		text-transform: uppercase;
+		letter-spacing: -0.02em;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		text-decoration: none;
+		color: var(--color-ink);
+		transition: color 0.15s;
+	}
+
+	.navbar__logo:hover {
+		color: var(--color-terra);
+	}
+
+	.navbar__logo-dot {
+		width: 10px;
+		height: 10px;
+		background: var(--color-terra);
+		border-radius: 50%;
+		border: 2px solid var(--color-ink);
+		flex-shrink: 0;
+		transition: transform 0.2s;
+	}
+
+	.navbar__logo:hover .navbar__logo-dot {
+		transform: scale(1.3);
+	}
+
+	.navbar__links {
+		display: flex;
+		gap: 32px;
+		list-style: none;
+	}
+
+	.navbar__link {
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-ink);
+		text-decoration: none;
+		transition: color 0.15s;
+		position: relative;
+	}
+
+	.navbar__link::after {
+		content: "";
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: var(--color-terra);
+		transition: width 0.2s;
+	}
+
+	.navbar__link:hover {
+		color: var(--color-terra);
+	}
+	.navbar__link:hover::after {
+		width: 100%;
+	}
+
+	/* ── Hamburger ────────────────────────────────── */
+	.navbar__hamburger {
+		display: none;
+		flex-direction: column;
+		gap: 5px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 4px;
+	}
+
+	.navbar__hamburger span {
+		display: block;
+		width: 24px;
+		height: 2px;
+		background: var(--color-ink);
+		transition:
+			transform 0.2s,
+			opacity 0.2s;
+	}
+
+	.navbar__hamburger.open span:nth-child(1) {
+		transform: rotate(45deg) translate(5px, 5px);
+	}
+	.navbar__hamburger.open span:nth-child(2) {
+		opacity: 0;
+	}
+	.navbar__hamburger.open span:nth-child(3) {
+		transform: rotate(-45deg) translate(5px, -5px);
+	}
+
+	/* ── Mobile Menu ──────────────────────────────── */
+	.mobile-menu {
+		width: 100%;
+		position: fixed;
+		top: 64px;
+		left: 0;
+		right: 0;
+		z-index: 400;
+		background: var(--color-cream);
+		border-bottom: 3px solid var(--color-ink);
+		padding: 24px var(--section-padding-x);
+		transform: translateX(110%);
+		transition: transform 0.3s ease;
+	}
+
+	.mobile-menu.open {
+		transform: translateX(0);
+		backdrop-filter: blur(10px);
+	}
+
+	.mobile-menu__links {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.mobile-menu__link {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-ink);
+		text-decoration: none;
+		padding: 12px 0;
+		border-bottom: 1px solid rgba(26, 21, 16, 0.1);
+		transition: color 0.15s;
+	}
+
+	.mobile-menu__link:hover {
+		color: var(--color-terra);
+	}
+
+	/* ── Responsive ───────────────────────────────── */
+	@media (max-width: 900px) {
+		.navbar__links,
+		.navbar__actions {
+			display: none;
+		}
+		.navbar__hamburger {
+			display: flex;
+		}
+	}
+
+	@media (min-width: 901px) {
+		.mobile-menu {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	// Smooth scroll
+	// document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+	// 	anchor.addEventListener("click", (e) => {
+	// 		const target = document.querySelector((anchor as HTMLAnchorElement).getAttribute("href")!);
+	// 		if (target) {
+	// 			e.preventDefault();
+	// 			target.scrollIntoView({ behavior: "smooth", block: "start" });
+	// 		}
+	// 	});
+	// });
+
+	function scrollTo(target: Element, duration = 700) {
+		const start = window.scrollY;
+		const end = target.getBoundingClientRect().top + start;
+		const startTime = performance.now();
+
+		// ease-in-out cúbico — suave em todos os browsers
+		function easeInOutCubic(t: number) {
+			return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+		}
+
+		function step(currentTime: number) {
+			const elapsed = currentTime - startTime;
+			const progress = Math.min(elapsed / duration, 1);
+			window.scrollTo(0, start + (end - start) * easeInOutCubic(progress));
+
+			if (progress < 1) requestAnimationFrame(step);
+		}
+
+		requestAnimationFrame(step);
+	}
+
+	document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+		anchor.addEventListener("click", (e) => {
+			const href = (anchor as HTMLAnchorElement).getAttribute("href")!;
+			const target = document.querySelector(href);
+			if (target) {
+				e.preventDefault();
+				scrollTo(target);
+			}
+		});
+	});
+
+	// Hamburger toggle
+	const hamburger = document.getElementById("hamburger-btn");
+	const mobileMenu = document.getElementById("mobile-menu");
+
+	hamburger?.addEventListener("click", () => {
+		const isOpen = hamburger.classList.toggle("open");
+		mobileMenu?.classList.toggle("open", isOpen);
+		hamburger.setAttribute("aria-expanded", String(isOpen));
+		mobileMenu?.setAttribute("aria-hidden", String(!isOpen));
+	});
+
+	// Close mobile menu on link click
+	mobileMenu?.querySelectorAll("a").forEach((link) => {
+		link.addEventListener("click", () => {
+			hamburger?.classList.remove("open");
+			mobileMenu.classList.remove("open");
+			hamburger?.setAttribute("aria-expanded", "false");
+			mobileMenu.setAttribute("aria-hidden", "true");
+		});
+	});
+</script>

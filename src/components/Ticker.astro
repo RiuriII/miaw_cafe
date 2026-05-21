@@ -1,0 +1,54 @@
+---
+// src/components/Ticker.astro
+import { TICKER_ITEMS } from '../data';
+
+// Duplicate array for seamless infinite loop
+const items = [...TICKER_ITEMS, ...TICKER_ITEMS];
+---
+
+<div class="ticker" aria-label="Destaques" role="marquee">
+  <div class="ticker__inner" aria-live="off">
+    {items.map((item) => (
+      <span class="ticker__item">
+        {item}
+        <span class="ticker__dot" aria-hidden="true"></span>
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .ticker {
+    background: var(--color-terra);
+    color: var(--color-white);
+    border-top: 3px solid var(--color-ink);
+    border-bottom: 3px solid var(--color-ink);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 12px 0;
+  }
+
+  .ticker__inner {
+    display: inline-flex;
+    animation: marquee 24s linear infinite;
+  }
+
+  .ticker__item {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0 36px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .ticker__dot {
+    width: 4px;
+    height: 4px;
+    background: rgba(250, 247, 240, 0.45);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+</style>

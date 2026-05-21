@@ -1,0 +1,308 @@
+@import "@fontsource/syne/700.css";
+@import "@fontsource/syne/800.css";
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/400-italic.css";
+@import "@fontsource/dm-mono/400.css";
+
+/* ── DESIGN TOKENS ─────────────────────────────────────────────── */
+:root {
+	/* Colors — Warm Palette */
+	--color-cream: #f0e8d0;
+	--color-parchment: #e4d9bc;
+	--color-cream-mid: #d0c8ae;
+	--color-white: #faf7f0;
+
+	--color-ink: #1a1510;
+	--color-warm-black: #241e16;
+
+	--color-terra: #c4622d;
+	--color-terra-light: #d97a47;
+	--color-rust: #6a2e1c;
+
+	--color-lime: #c8e800;
+	--color-lime-dark: #a0bb00;
+
+	--color-sage: #6b7a55;
+	--color-sand: #8c7945;
+
+	/* Typography */
+	--font-display: "Syne", "Arial Black", sans-serif;
+	--font-body: "Fraunces", Georgia, serif;
+	--font-mono: "DM Mono", "Courier New", monospace;
+
+	/* Brutalist Box Model */
+	--border-width: 3px;
+	--shadow-ink: 7px 7px 0px var(--color-ink);
+	--shadow-terra: 7px 7px 0px var(--color-terra);
+	--shadow-lime: 7px 7px 0px var(--color-lime-dark);
+	--shadow-sm: 4px 4px 0px var(--color-ink);
+	--shadow-sm-terra: 4px 4px 0px var(--color-terra);
+
+	/* Spacing */
+	--section-padding-x: 48px;
+	--section-padding-y: 100px;
+}
+
+/* ── BASE RESET ─────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	font-size: 16px;
+}
+
+body {
+	background-color: var(--color-cream);
+	font-family: var(--font-body);
+	color: var(--color-ink);
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Paper noise texture overlay */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+	pointer-events: none;
+	z-index: 9999;
+	opacity: 0.65;
+	mix-blend-mode: multiply;
+}
+
+/* ── TYPOGRAPHY UTILITIES ───────────────────────────────────────── */
+.font-display {
+	font-family: var(--font-display);
+}
+
+.font-body {
+	font-family: var(--font-body);
+}
+
+.font-mono {
+	font-family: var(--font-mono);
+}
+
+.text-display {
+	font-family: var(--font-display);
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: -0.02em;
+	line-height: 0.9;
+}
+
+.text-display-bold {
+	font-family: var(--font-display);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: -0.01em;
+	line-height: 1;
+}
+
+.text-mono {
+	font-family: var(--font-mono);
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+.text-italic {
+	font-family: var(--font-body);
+	font-style: italic;
+}
+
+/* ── BRUTALIST COMPONENT BASE ───────────────────────────────────── */
+.bb {
+	border: var(--border-width) solid var(--color-ink);
+	box-shadow: var(--shadow-ink);
+}
+
+.bb-terra {
+	border: var(--border-width) solid var(--color-ink);
+	box-shadow: var(--shadow-terra);
+}
+
+.bb-lime {
+	border: var(--border-width) solid var(--color-ink);
+	box-shadow: var(--shadow-lime);
+}
+
+.bb-sm {
+	border: 2px solid var(--color-ink);
+	box-shadow: var(--shadow-sm);
+}
+
+/* ── SECTION LABEL PATTERN ──────────────────────────────────────── */
+.section-label {
+	font-family: var(--font-mono);
+	font-size: 0.8rem;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--color-terra);
+	margin-bottom: 8px;
+}
+
+.section-label--light {
+	color: var(--color-terra-light);
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.section-label--light::before {
+	content: "";
+	display: block;
+	width: 28px;
+	height: 2px;
+	background: var(--color-terra);
+	flex-shrink: 0;
+}
+
+/* ── PILL / TAG ─────────────────────────────────────────────────── */
+.pill {
+	font-family: var(--font-mono);
+	font-size: 0.55rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 3px 8px;
+	border: 2px solid var(--color-ink);
+	background: var(--color-cream);
+	display: inline-block;
+}
+
+.pill--terra {
+	background: var(--color-terra);
+	color: var(--color-white);
+	border-color: var(--color-terra);
+}
+
+.pill--lime {
+	background: var(--color-lime);
+	color: var(--color-ink);
+}
+
+/* ── STICKER / FLOATING LABEL ───────────────────────────────────── */
+.sticker {
+	position: absolute;
+	border: 2px solid var(--color-ink);
+	padding: 7px 14px;
+	font-family: var(--font-mono);
+	font-size: 0.6rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	background: var(--color-lime);
+	box-shadow: 3px 3px 0 var(--color-ink);
+	z-index: 20;
+	animation: float 4s ease-in-out infinite;
+}
+
+/* ── SECTION HEADER DIVIDER ─────────────────────────────────────── */
+.sec-header {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	margin-bottom: 56px;
+	border-bottom: 3px solid var(--color-ink);
+	padding-bottom: 20px;
+}
+
+/* ── ANIMATIONS ─────────────────────────────────────────────────── */
+@keyframes float {
+	0%,
+	100% {
+		transform: var(--rotate, rotate(-9deg)) translateY(0);
+	}
+
+	50% {
+		transform: var(--rotate, rotate(-9deg)) translateY(-6px);
+	}
+}
+
+@keyframes float-alt {
+	0%,
+	100% {
+		transform: rotate(5deg) translateY(0);
+	}
+
+	50% {
+		transform: rotate(7deg) translateY(-6px);
+	}
+}
+
+@keyframes marquee {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(32px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* ── SCROLL REVEAL ──────────────────────────────────────────────── */
+[data-reveal] {
+	opacity: 0;
+	transform: translateY(30px);
+	transition:
+		opacity 0.5s ease,
+		transform 0.5s ease;
+}
+
+[data-reveal].revealed {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+[data-reveal="offset"] {
+	transform: translateY(48px);
+}
+
+[data-reveal="offset"].revealed {
+	transform: translateY(24px);
+}
+
+/* ── RESPONSIVE BREAKPOINTS ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+	:root {
+		--section-padding-x: 32px;
+		--section-padding-y: 80px;
+	}
+}
+
+@media (max-width: 768px) {
+	:root {
+		--section-padding-x: 16px;
+		--section-padding-y: 40px;
+	}
+}
+
+/* ── FOCUS ACCESSIBILITY ────────────────────────────────────────── */
+:focus-visible {
+	outline: 3px solid var(--color-terra);
+	outline-offset: 3px;
+}
+
+/* ── SELECTION ──────────────────────────────────────────────────── */
+::selection {
+	background: var(--color-terra);
+	color: var(--color-white);
+}

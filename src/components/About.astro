@@ -1,0 +1,254 @@
+---
+// src/components/About.astro
+
+const highlights = [
+  'Café de origem única, torrado localmente',
+  'Todos os gatos resgatados e vacinados',
+  'Espaço higienizado diariamente',
+  'Parceria com ONGs de proteção animal',
+  'Cardápio 80% vegano e sem glúten',
+];
+---
+
+<section
+  id="sobre"
+  aria-label="Sobre o Miaw Café"
+  class="about"
+>
+  <!-- Decorative oversized number -->
+  <div class="about__deco" aria-hidden="true">02</div>
+
+  <div class="about__grid">
+
+    <!-- Left: text content -->
+    <div class="about__content">
+      <p class="section-label section-label--light">Nossa história</p>
+
+      <h2 class="about__heading text-display">
+        Um Refúgio<br>de Patas<br>&amp; Café
+      </h2>
+
+      <p class="about__body">
+        O Miaw Café nasceu de uma ideia simples: criar um espaço onde o ritmo acelerado
+        da cidade pudesse desacelerar. Um lugar onde o aroma de café especial se mistura
+        ao ronronar suave, onde cada visita vira memória afetiva.
+      </p>
+
+      <p class="about__body">
+        Fundado em 2022 no coração de Pinheiros, acreditamos que gatos e boas bebidas
+        têm o poder de transformar qualquer tarde em algo extraordinário.
+      </p>
+
+      <ul class="about__features" aria-label="Nossos diferenciais" role="list">
+        {highlights.map((item) => (
+          <li class="about__feature-item" role="listitem">{item}</li>
+        ))}
+      </ul>
+
+      <div class="about__cta">
+        <a href="#experiencia" class="btn btn--primary">Ver o Espaço</a>
+      </div>
+    </div>
+
+    <!-- Right: card + info block -->
+    <div class="about__right">
+      <div class="about__card bb-terra" role="img" aria-label="Ambiente do café com gatos">
+        <div class="about__card-image" aria-hidden="true">
+          <img class="card-image" src="/images/experience.jpg" alt="Ambiente do café com gatos" >
+        </div>
+        <div class="about__card-body">
+          <p class="about__card-label">Fundadoras — Ana &amp; Carol</p>
+          <blockquote class="about__card-quote">
+            "Queríamos criar um espaço que curasse a alma. Acreditamos que um bom café e
+            uma patinha quentinha têm esse poder."
+          </blockquote>
+          <span class="about__card-stamp">Pinheiros, São Paulo</span>
+        </div>
+      </div>
+
+      <!-- Hours block -->
+      <div class="about__hours" aria-label="Horário de funcionamento">
+        <div>
+          <p class="about__hours-label">Horário de Funcionamento</p>
+          <p class="about__hours-value">Ter—Dom / 10h–20h</p>
+        </div>
+        <span aria-hidden="true" style="font-size: 2rem;">🕙</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--color-ink);
+    color: var(--color-cream);
+    padding: var(--section-padding-y) var(--section-padding-x);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about__deco {
+    position: absolute;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20rem;
+    color: rgba(196, 98, 45, 0.07);
+    right: -40px;
+    top: -20px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Content ──────────────────────────────────── */
+  .about__heading {
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    color: var(--color-cream);
+    margin-bottom: 28px;
+  }
+
+  .about__body {
+    color: rgba(240, 232, 208, 0.65);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .about__features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 36px;
+  }
+
+  .about__feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(240, 232, 208, 0.52);
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(240, 232, 208, 0.08);
+  }
+
+  .about__feature-item::before {
+    content: '→';
+    color: var(--color-terra);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Card ─────────────────────────────────────── */
+  .about__card {
+    background: var(--color-parchment);
+  }
+
+  .about__card-image {
+    background: var(--color-terra);
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px solid rgba(240, 232, 208, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    filter: saturate(1.4) brightness(0.95);
+    transition: transform 0.3s ease;
+  }
+
+  .about__card-body {
+    padding: 24px;
+    background: var(--color-warm-black);
+  }
+
+  .about__card-label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-sand);
+    margin-bottom: 8px;
+  }
+
+  .about__card-quote {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: rgba(240, 232, 208, 0.72);
+    line-height: 1.65;
+  }
+
+  .about__card-stamp {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--color-terra);
+    color: var(--color-white);
+    padding: 4px 12px;
+    border: 1px solid rgba(240, 232, 208, 0.25);
+  }
+
+  /* ── Hours block ──────────────────────────────── */
+  .about__hours {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--color-terra);
+    border: 3px solid rgba(240, 232, 208, 0.25);
+    box-shadow: 6px 6px 0 rgba(196, 98, 45, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+  }
+
+  .about__hours-label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240, 232, 208, 0.615);
+    margin-bottom: 4px;
+  }
+
+  .about__hours-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--color-white);
+  }
+
+  .about__hours:hover {
+    box-shadow: 0px 0px 0 rgba(196, 98, 45, 0.4);
+    border: 3px solid rgba(240, 232, 208, 0.522);
+  }
+
+  /* ── Responsive ───────────────────────────────── */
+  @media (max-width: 900px) {
+    .about__grid { grid-template-columns: 1fr; gap: 40px; }
+    .about__deco { font-size: 8rem; }
+  }
+</style>

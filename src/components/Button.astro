@@ -1,0 +1,89 @@
+---
+// src/components/Button.astro
+// Global button styles are defined here and imported in BaseLayout
+
+// This component also exports button class definitions for use across the project
+---
+
+<style is:global>
+  /* ── Button System ─────────────────────────────── */
+
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: 3px solid var(--color-ink);
+    box-shadow: 5px 5px 0 var(--color-ink);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    line-height: 1;
+  }
+
+  .btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0 var(--color-ink);
+  }
+
+  .btn:active {
+    transform: translate(5px, 5px);
+    box-shadow: 0 0 0 var(--color-ink);
+  }
+
+  /* Primary — terra */
+  .btn--primary {
+    background: var(--color-terra);
+    color: var(--color-white);
+  }
+
+  /* Secondary — lime */
+  .btn--secondary {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+
+  /* Dark — ink */
+  .btn--dark {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+
+  .btn--dark:hover {
+    box-shadow: 3px 3px 0 var(--color-terra);
+  }
+
+  /* Ghost — transparent */
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-ink);
+  }
+
+  /* Outline light — for dark backgrounds */
+  .btn--outline-light {
+    background: transparent;
+    border-color: rgba(240, 232, 208, 0.3);
+    color: var(--color-cream);
+    box-shadow: 5px 5px 0 rgba(240, 232, 208, 0.15);
+  }
+
+  .btn--outline-light:hover {
+    box-shadow: 3px 3px 0 rgba(240, 232, 208, 0.15);
+  }
+
+  /* Small variant */
+  .btn--sm {
+    padding: 8px 18px;
+    font-size: 0.65rem;
+  }
+
+  /* Full width */
+  .btn--full {
+    width: 100%;
+    text-align: center;
+    display: block;
+  }
+</style>

@@ -1,0 +1,443 @@
+---
+// src/components/Menu.astro
+import { MENU, SPECIALS } from "../data";
+---
+
+<section id="cardapio" aria-label="Nosso cardápio" class="menu">
+	<!-- Section header -->
+	<div class="sec-header">
+		<div>
+			<p class="section-label">Para o seu paladar</p>
+			<h2 class="menu__heading text-display">
+				O que<br />Servimos
+			</h2>
+		</div>
+		<a href="#reserva" class="btn btn--dark" style="flex-shrink:0;"> Ver Cardápio Completo → </a>
+	</div>
+
+	<div class="menu__layout">
+		<!-- Main menu editorial card -->
+		<div class="menu__editorial bb" aria-label="Seleção de bebidas">
+			<div class="menu__editorial-pattern" aria-hidden="true"></div>
+
+			<p class="menu__editorial-label">{MENU.label}</p>
+			<h3 class="menu__editorial-title text-display">
+				{
+					MENU.title.split("\n").map((line, i) => (
+						<>
+							{i > 0 && <br />}
+							{line}
+						</>
+					))
+				}
+			</h3>
+			<p class="menu__editorial-subtitle"><em>{MENU.subtitle}</em></p>
+
+			<nav aria-label="Lista de bebidas" role="list">
+				{
+					MENU.items.map((item) => (
+						<div class="menu__item" role="listitem">
+							<div class="menu__item-info">
+								<p class="menu__item-name">{item.name}</p>
+								<p class="menu__item-desc">
+									<em>{item.description}</em>
+								</p>
+							</div>
+							<span class="menu__item-price" aria-label={`R$ ${item.price}`}>
+								R$ {item.price}
+							</span>
+						</div>
+					))
+				}
+			</nav>
+		</div>
+
+		<!-- Specials sidebar -->
+		<aside aria-label="Especiais da cozinha">
+			<p class="section-label" style="margin-bottom: 16px;">Especiais da Cozinha</p>
+
+			<div class="menu__specials" role="list">
+				{
+					SPECIALS.map((special, i) => (
+						<article
+							class={`menu__special-card${special?.image ? " menu__special-card--has-image" : ""}`}
+							role="listitem"
+							data-reveal
+							style={{ "--offset-x": i % 2 === 0 ? "14px" : "0px" }}
+						>
+							{special.badge && (
+								<span class="menu__special-badge" aria-label={special.badge}>
+									{special.badge}
+								</span>
+							)}
+
+							{special?.image ? (
+								<div class="menu__special-image-wrap">
+									<img src={special.image} alt={special.name} class="menu__special-image" />
+								</div>
+							) : (
+								<span class="menu__special-icon" aria-hidden="true">
+									{special.icon}
+								</span>
+							)}
+
+							<div class="menu__special-body">
+								<h4 class="menu__special-name">{special.name}</h4>
+								<p class="menu__special-desc">
+									<em>{special.description}</em>
+								</p>
+								<p class="menu__special-price" aria-label={`R$ ${special.price}`}>
+									R$ {special.price}
+								</p>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</aside>
+	</div>
+</section>
+
+<style>
+	.menu {
+		background: var(--color-cream);
+		padding: var(--section-padding-y) var(--section-padding-x);
+		position: relative;
+	}
+
+	.menu__heading {
+		font-size: clamp(2rem, 5vw, 3.5rem);
+	}
+
+	.menu__layout {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: 48px;
+		align-items: start;
+	}
+
+	/* ── Editorial card ───────────────────────────── */
+	.menu__editorial {
+		background: var(--color-terra);
+		padding: 44px;
+		color: var(--color-white);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.menu__editorial-pattern {
+		position: absolute;
+		inset: 0;
+		background-image: repeating-linear-gradient(
+			45deg,
+			transparent,
+			transparent 14px,
+			rgba(250, 247, 240, 0.05) 14px,
+			rgba(250, 247, 240, 0.05) 15px
+		);
+		pointer-events: none;
+	}
+
+	.menu__editorial-label {
+		font-family: var(--font-mono);
+		font-size: 0.6rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: rgba(250, 247, 240, 0.5);
+		margin-bottom: 12px;
+		position: relative;
+		z-index: 2;
+	}
+
+	.menu__editorial-title {
+		font-size: clamp(3rem, 7vw, 5rem);
+		color: var(--color-white);
+		line-height: 0.88;
+		margin-bottom: 8px;
+		position: relative;
+		z-index: 2;
+	}
+
+	.menu__editorial-subtitle {
+		font-family: var(--font-body);
+		font-style: italic;
+		font-size: 1.05rem;
+		color: rgba(250, 247, 240, 0.6);
+		margin-bottom: 36px;
+		position: relative;
+		z-index: 2;
+	}
+
+	/* ── Menu items ───────────────────────────────── */
+	.menu__item {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: baseline;
+		padding: 16px 0;
+		border-bottom: 1px solid rgba(250, 247, 240, 0.15);
+		gap: 20px;
+		position: relative;
+		z-index: 2;
+	}
+
+	.menu__item:last-child {
+		border-bottom: none;
+	}
+
+	.menu__item-name {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.95rem;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: var(--color-white);
+		margin-bottom: 3px;
+	}
+
+	.menu__item-desc {
+		font-family: var(--font-body);
+		font-style: italic;
+		font-size: 0.78rem;
+		color: rgba(250, 247, 240, 0.55);
+	}
+
+	.menu__item-price {
+		font-family: var(--font-mono);
+		font-size: 1rem;
+		font-weight: 700;
+		color: var(--color-lime);
+		white-space: nowrap;
+	}
+
+	/* ── Specials sidebar ─────────────────────────── */
+	.menu__specials {
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+	}
+
+	.menu__special-card {
+		transform: translateX(var(--offset-x));
+		background: var(--color-white);
+		border: 3px solid var(--color-ink);
+		padding: 22px;
+		position: relative;
+		cursor: pointer;
+		box-shadow: 5px 5px 0 var(--color-ink);
+		transition:
+			transform 0.3s,
+			opacity 0.4s,
+			box-shadow 0.2s;
+	}
+
+	.menu__special-card:hover {
+		transform: translate(-3px, -3px);
+		box-shadow: 8px 8px 0 var(--color-ink);
+	}
+
+	.menu__special-badge {
+		position: absolute;
+		top: -8px;
+		right: 16px;
+		background: var(--color-lime);
+		border: 2px solid var(--color-ink);
+		font-family: var(--font-mono);
+		font-size: 0.55rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		padding: 3px 8px;
+		box-shadow: 2px 2px 0 var(--color-ink);
+	}
+
+	.menu__special-icon {
+		font-size: 2rem;
+		display: block;
+		margin-bottom: 10px;
+	}
+
+	/* Remove o padding do card com imagem e corta o overflow */
+	.menu__special-card--has-image {
+		min-height: 150px;
+		padding: 0;
+		display: flex;
+	}
+
+	/* Wrapper da imagem ocupa largura total com altura fixa */
+	.menu__special-image-wrap {
+		width: 70%;
+		border-right: 3px solid var(--color-ink);
+		overflow: hidden;
+	}
+
+	/* Imagem cobre o espaço inteiro */
+	.menu__special-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		display: block;
+		transition: transform 0.4s ease;
+	}
+
+	/* Zoom sutil no hover para dar vida */
+	.menu__special-card--has-image:hover .menu__special-image {
+		transform: scale(1.05);
+	}
+
+	/* Wrapper de texto com o padding original do card */
+	.menu__special-body {
+		padding: 18px 22px 22px;
+	}
+
+	.menu__special-name {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1rem;
+		text-transform: uppercase;
+		margin-bottom: 4px;
+		color: var(--color-ink);
+	}
+
+	.menu__special-desc {
+		font-family: var(--font-body);
+		font-style: italic;
+		font-size: 0.88rem;
+		color: rgba(26, 21, 16, 0.6);
+		margin-bottom: 12px;
+		line-height: 1.5;
+	}
+
+	.menu__special-price {
+		font-family: var(--font-mono);
+		font-size: 1rem;
+		color: var(--color-terra);
+		font-weight: 700;
+	}
+
+	/* ── Responsive ───────────────────────────────── */
+	@media (max-width: 1024px) {
+		.sec-header {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 24px;
+		}
+		.menu__layout {
+			grid-template-columns: 1fr;
+			gap: 28px;
+		}
+		.menu__editorial {
+			padding: 32px;
+		}
+		.menu__special-card {
+			transform: none;
+			width: 100%;
+			box-shadow: none;
+		}
+		.menu__special-card--has-image {
+			min-height: 120px;
+			display: flex;
+			flex-direction: row;
+		}
+		.menu__special-image-wrap {
+			width: 40%;
+			max-height: 140px;
+			border-right: 3px solid var(--color-ink);
+		}
+		.menu__special-body {
+			padding: 14px;
+		}
+		.menu__item {
+			grid-template-columns: 1fr auto;
+			gap: 12px;
+			padding: 12px 0;
+		}
+	}
+
+	@media (max-width: 600px) {
+		/* Editorial: padding menor mas mantém respiro */
+		.menu__editorial {
+			padding: 24px 20px;
+		}
+
+		.menu__editorial-subtitle {
+			font-size: 0.9rem;
+			margin-bottom: 24px;
+		}
+
+		/* Itens: mantém grid 1fr auto até o fim —
+		   nome/desc encolhem, preço sempre alinhado à direita */
+		.menu__item {
+			grid-template-columns: 1fr auto;
+			gap: 12px;
+			padding: 12px 0;
+			align-items: start; /* baseline fica estranha com fontes menores */
+		}
+
+		.menu__item-name {
+			font-size: 0.78rem; /* reduz sem perder legibilidade */
+			letter-spacing: 0.01em;
+		}
+
+		.menu__item-desc {
+			font-size: 0.7rem;
+		}
+
+		.menu__item-price {
+			font-size: 0.85rem;
+			/* linha de pontos entre nome e preço — efeito menu de restaurante */
+			padding-top: 2px;
+		}
+
+		/* Cards especiais: coluna única com imagem no topo */
+		.menu__special-card--has-image {
+			flex-direction: column;
+			height: 350px;
+		}
+
+		.menu__special-image-wrap {
+			width: 100%;
+			height: 65%;
+			max-height: unset;
+			border-right: none;
+			border-bottom: 3px solid var(--color-ink);
+		}
+
+		.menu__special-card--has-image:hover .menu__special-image {
+			transform: none;
+		}
+
+		.menu__special-body {
+			padding: 14px 16px 18px;
+		}
+
+		.section-label {
+			padding: 16px 0;
+		}
+	}
+
+	/* ── Mobile pequeno (≤ 400px) ─────────────────── */
+	@media (max-width: 400px) {
+		.menu__editorial {
+			padding: 20px 16px;
+		}
+
+		/* Título do editorial menor mas ainda impactante */
+		.menu__editorial-title {
+			font-size: clamp(1.8rem, 11vw, 2.4rem);
+			margin-bottom: 6px;
+		}
+
+		/* Linha separadora mais fina para ganhar espaço vertical */
+		.menu__item {
+			padding: 10px 0;
+			gap: 8px;
+		}
+
+		/* Badge dos specials some em telas muito pequenas
+		   para não vazar fora do card */
+		.menu__special-badge {
+			font-size: 0.5rem;
+			padding: 2px 6px;
+		}
+	}
+</style>
