@@ -7,7 +7,7 @@ export const CATS: Cat[] = [
 		name: "Biscoito",
 		breed: "Vira-Lata Caramelado",
 		age: "2 anos",
-		image: "/images/biscoito.jpg",
+		image: "https://v0c70v61jf.ufs.sh/f/KJL4pCDRCwYT1AplzNUE0sO6bDvgizAyPuxeYNj3owTC4Zcp",
 		bgClass: "bg-terra",
 		description:
 			"Curioso, adora sentar no seu colo enquanto você toma café. Especialista em derrubar canecas e ganhar corações.",
@@ -19,7 +19,7 @@ export const CATS: Cat[] = [
 		name: "Nuvem",
 		breed: "Angora Branca",
 		age: "4 anos",
-		image: "/images/nuvem.jpg",
+		image: "https://v0c70v61jf.ufs.sh/f/KJL4pCDRCwYTWwO4e8ViJYSvOwI6hM82Lu0mCsy5Gac3N1gK",
 		bgClass: "bg-sage",
 		description:
 			"A diva do café. Exige atenção constante mas paga com ronronares que fazem qualquer stress desaparecer.",
@@ -30,7 +30,7 @@ export const CATS: Cat[] = [
 		id: "capuccino",
 		name: "Capuccino",
 		breed: "Misto Marrom",
-		image: "/images/capuccino.jpg",
+		image: "https://v0c70v61jf.ufs.sh/f/KJL4pCDRCwYTKzyA2RDRCwYT4PmdFU8osBLlf3NZAySOkcbD",
 		age: "1 ano",
 		bgClass: "bg-brown",
 		description:
@@ -81,7 +81,7 @@ export const MENU: MenuCategory = {
 export const SPECIALS: Special[] = [
 	{
 		icon: "🧁",
-		image: "/images/cupcake.png",
+		image: "https://v0c70v61jf.ufs.sh/f/KJL4pCDRCwYT3EAnqQwZ2oOaN7k5zFU1hYEtypfmn4GIjQHe",
 		name: "Cupcake da Nuvem",
 		description: "Baunilha bourbon, cream cheese e decoração de patinha feita à mão.",
 		price: 18,
@@ -89,14 +89,14 @@ export const SPECIALS: Special[] = [
 	},
 	{
 		icon: "🥐",
-		image: "/images/croissant.png",
+		image: "https://v0c70v61jf.ufs.sh/f/KJL4pCDRCwYT1sF2VQE0sO6bDvgizAyPuxeYNj3owTC4ZcpI",
 		name: "Croissant Artesanal",
 		description: "Manteiga francesa, 72h de fermentação. Laminado na hora.",
 		price: 14,
 	},
 	{
 		icon: "🍰",
-		image: "/images/cheesecake.png",
+		image: "https://v0c70v61jf.ufs.sh/f/KJL4pCDRCwYTfOJPSHZ4TS9VRp8dbuWwBs5LQyv7fZnkHX6F",
 		name: "Cheesecake de Maracujá",
 		description: "Base de biscoito amanteigado, recheio cremoso e coulis de maracujá.",
 		price: 22,
@@ -104,7 +104,7 @@ export const SPECIALS: Special[] = [
 	},
 	{
 		icon: "🥞",
-		image: "/images/pancakes.png",
+		image: "https://v0c70v61jf.ufs.sh/f/KJL4pCDRCwYTLOie1QpelVxnjdquvTDiF9OzKpcr7XZB5aA2",
 		name: "Panquecas Japonesas",
 		description: "Soufflé fofinho com maple e frutas vermelhas frescas.",
 		price: 26,
